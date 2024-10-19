@@ -1,26 +1,43 @@
-﻿using ProgrammingContest.atcorder;
-using System;
+﻿using System;
+using System.Runtime.InteropServices;
 class Program
 {
     static void Main(string[] args)
     {
-        // 整数の入力
-        int a = int.Parse(Console.ReadLine());
-        // スペース区切りの整数の入力
-        string[] input = Console.ReadLine().Split(' ');
-        int b = int.Parse(input[0]);
-        int c = int.Parse(input[1]);
-        // 文字列の入力
-        string s = Console.ReadLine();
+        string[] a = Console.ReadLine().Split(" ");
+        int n = int.Parse(a[0]);
+        int m = int.Parse(a[1]);
 
+        int[] peaks = new int[n];
+        List<Point> points = new List<Point>();
 
+        for (int i = 1; i <= m; i++)
+        {
+            Point p = new Point();
+            string[] row = Console.ReadLine().Split(" ");
+            p.U = int.Parse(row[0]);
+            p.V = int.Parse(row[1]);
+            p.W = int.Parse(row[2]);
+            p.Done = false;
+            points.Add(p);
+        }
 
-
-
-
-
+        Point target = points[0];
+        points[0].Done = true;
+        while(true)
+        {
+            target.U
+        }
 
         //出力
-        Console.WriteLine((a + b + c) + " " + s);
+        Console.WriteLine();
     }
+}
+
+class Point
+{
+    public int U { get; set; }
+    public int V { get; set; }
+    public int W { get; set; }
+    public bool Done { get; set; }
 }
