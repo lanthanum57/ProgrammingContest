@@ -12,6 +12,9 @@ namespace ProgrammingContest.kyopgm
          家庭用PCの計算スペックは、毎秒10億回程度。
         このスペックを基準として、基準時間内に計算が終わるかどうか判定する。
 
+        AtCorder自動採点
+        https://atcoder.jp/contests/tessoku-book
+
         応用問題の解説ページ
         https://github.com/E869120/kyopro-tessoku
          */
@@ -133,6 +136,42 @@ namespace ProgrammingContest.kyopgm
             }
 
             Console.WriteLine("No");
+        }
+
+        public void A04()
+        {
+             // 10進数→2進数
+            int n = int.Parse(Console.ReadLine());
+            string result = string.Empty;
+
+            for (int i = 9; i >= 0; i--)
+            {
+                int wari = Convert.ToInt32(Math.Pow(2, i)); // 2のi乗を求める。
+                result += (n / wari).ToString();
+                n = n % wari;
+            }
+
+            Console.WriteLine(result);
+        }
+
+        public void B04()
+        {
+            // 2進数→10進数
+            string n = Console.ReadLine();
+            double result = 0;
+
+            int x = 0;
+            for (int i = n.Length; i > 0; i--)
+            {
+                if (n[i - 1] == '1')
+                {
+                    result += Math.Pow(2, x);
+                }
+
+                x++;
+            }
+
+            Console.WriteLine(result);
         }
     }
 }
