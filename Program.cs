@@ -3,20 +3,24 @@ class Program
 {
     static void Main(string[] args)
     {
-        string n = Console.ReadLine();
-        double result = 0;
+        string[] input = Console.ReadLine().Split(" ");
+        int n = int.Parse(input[0]); // 使う整数：1～3000
+        int k = int.Parse(input[1]); // 合計：3～9000
 
-        int x = 0;
-        for (int i = n.Length; i > 0; i--)
+        int count = 0;
+
+        for (int i = 1; i <= n; i++)
         {
-            if (n[i - 1] == '1')
+            for (int j = 1; j <= n; j++)
             {
-                result += Math.Pow(2, x);
+                int l = k - i - j;
+                if (l >= 1 && l <= n)
+                {
+                    count++;
+                }
             }
-
-            x++;
         }
 
-        Console.WriteLine(result);
+        Console.WriteLine(count);
     }
 }
