@@ -3,41 +3,52 @@ class Program
 {
     static void Main(string[] args)
     {
-        string[] input = Console.ReadLine().Split(" ");
-        int N = int.Parse(input[0]);
-        int Q = int.Parse(input[1]);
-
+        int N = int.Parse(Console.ReadLine());
         string[] A = Console.ReadLine().Split(" ");
 
-        // 累積和を作成
-        int[] SumA = new int[N];
-        int sum = 0;
+        int[] sumA = new int[A.Length];
+        int beforeA = 0;
         for (int i = 0; i < N; i++)
         {
-            SumA[i] = sum + int.Parse(A[i]);
-            sum += int.Parse(A[i]);
+            sumA[i] = int.Parse(A[i]) + beforeA;
+            beforeA = sumA[i];
         }
 
-        int[] result = new int[Q];
+        int Q = int.Parse(Console.ReadLine());
+        string[] answer = new string[Q];
+
         for (int i = 0; i < Q; i++)
         {
-            input = Console.ReadLine().Split(" ");
-            int begin = int.Parse(input[0]);
-            int end = int.Parse(input[1]);
+            string[] L = Console.ReadLine().Split(" ");
 
-            if (begin >= 2)
+            int begin = int.Parse(L[0]) - 1;
+            int end = int.Parse(L[1]) - 1;
+
+            int num = sumA[end] - sumA[begin];
+            if (begin > 0)
             {
-                result[i] = SumA[end - 1] - SumA[begin - 2];
+                num = sumA[end] - sumA[begin - 1];
+            }
+            int cnt = end - begin + 1;
+
+            if (num * 2 > cnt)
+            {
+                answer[i] = "win";
+            }
+            else if (num * 2 < cnt)
+            {
+                answer[i] = "lose";
             }
             else
             {
-                result[i] = SumA[end - 1];
+                answer[i] = "draw";
             }
         }
-        
-        foreach (var r in result)
+
+        foreach (string ans in answer)
         {
-            Console.WriteLine(r);
+            Console.WriteLine(ans);
         }
+
     }
 }
