@@ -101,5 +101,33 @@ namespace ProgrammingContest.kyopgm
                 Console.WriteLine(ans);
             }
         }
+
+        // 差分を取ってから累積和を計算する手法
+        // 通称「いもす法」。
+        public void A07()
+        {
+            int D = int.Parse(Console.ReadLine());
+            int N = int.Parse(Console.ReadLine());
+
+            int[] countDiff = new int[D + 1];
+
+            for (int i = 0; i < N; i++)
+            {
+                string[] input = Console.ReadLine().Split(" ");
+                int L = int.Parse(input[0]);
+                int R = int.Parse(input[1]);
+
+                countDiff[L - 1] += 1;
+                countDiff[R] -= 1;
+            }
+
+            int before = 0;
+            for (int i = 0; i < D; i++)
+            {
+                int count = countDiff[i] + before;
+                Console.WriteLine(count);
+                before = count;
+            }
+        }
     }
 }
