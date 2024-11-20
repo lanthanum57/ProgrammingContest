@@ -160,6 +160,7 @@ namespace ProgrammingContest.kyopgm
 
         // 2次元の累積和
         // 縦横でそれぞれ累積和を計算
+        // -1の場所の値を引くので、予め1つ多く配列を用意しておく。
         public void A08()
         {
             string[] input = Console.ReadLine().Split(" ");
