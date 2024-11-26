@@ -3,61 +3,60 @@ class Program
 {
     static void Main(string[] args)
     {
-        string[] input = Console.ReadLine().Split(" ");
-        int H = int.Parse(input[0]);
-        int W = int.Parse(input[1]);
+        int N = int.Parse(Console.ReadLine());
+        int[,] points = new int[1501, 1501];
 
-        int[,] X = new int[H + 1, W + 1];
-
-        // 初期化
-        for (int i = 0; i <= H; i++)
+        for (int i = 0; i < N; i++)
         {
-            for (int j = 0; j <= W; j++)
+            string[] input = Console.ReadLine().Split(" ");
+            int X = int.Parse(input[0]);
+            int Y = int.Parse(input[1]);
+
+            points[X, Y] += 1;
+        }
+
+        // 横の合計
+        for (int i = 1; i <= 1500; i++)
+        {
+            int beforePoint = 0;
+            for (int j = 1; j <= 1500; j++)
             {
-                X[i, j] = 0;
+                points[i, j] += beforePoint;
+                beforePoint = points[i, j];
             }
         }
 
-        // 値の取得
-        // 横方向の累積和
-        for (int i = 1; i <= H; i++)
+        // 縦の合計
+        for (int i = 1; i <= 1500; i++)
         {
-            string[] inputX = Console.ReadLine().Split(" ");
-            int beforeValue = 0;
-            for (int j = 1; j <= W; j++)
+            int beforePoint = 0;
+            for (int j = 1; j <= 1500; j++)
             {
-                X[i, j] = int.Parse(inputX[j - 1]) + beforeValue;
-
-                // 次の値に加算する値
-                beforeValue = X[i, j];
+                points[j, i] += beforePoint;
+                beforePoint = points[j, i];
             }
         }
 
-        // 縦方向の累積和
-        for (int i = 1; i <= W; i++)
-        {
-            int beforeValue = 0;
-            for (int j = 1; j <= H; j++)
-            {
-                X[j, i] += beforeValue;
-                beforeValue = X[j, i];
-            }
-        }
-
-
-        // 質問への回答
         int Q = int.Parse(Console.ReadLine());
-
+        List<int> sums = new List<int>();
         for (int i = 0; i < Q; i++)
         {
-            string[] question = Console.ReadLine().Split(" ");
-            int A = int.Parse(question[0]);
-            int B = int.Parse(question[1]);
-            int C = int.Parse(question[2]);
-            int D = int.Parse(question[3]);
+            string[] input = Console.ReadLine().Split(" ");
+            int a1 = int.Parse(input[0]);
+            int b1 = int.Parse(input[1]);
+            int a2 = int.Parse(input[2]);
+            int b2 = int.Parse(input[3]);
 
-            int ans = X[C, D] + X[A - 1, B - 1] - X[A - 1, D] - X[C, B - 1];
-            Console.WriteLine(ans);
+            //int point1 = points[a1, b1];
+            //int point2 = points[a2, b2];
+
+            int sum = points[a2, b2] - points[a2, b1 - 1] - points[a1 - 1, b2] + points[a1 - 1, b1 - 1];
+            sums.Add(sum);
+        }
+
+        foreach (int sum in sums)
+        {
+            Console.WriteLine(sum);
         }
     }
 }
