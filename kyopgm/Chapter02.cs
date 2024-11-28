@@ -283,5 +283,65 @@ namespace ProgrammingContest.kyopgm
                 Console.WriteLine(sum);
             }
         }
+
+        // 2次元の差分取得後に累積和を計算する手法
+        private void A09()
+        {
+            string[] input = Console.ReadLine().Split(" ");
+            int H = int.Parse(input[0]);
+            int W = int.Parse(input[1]);
+            int N = int.Parse(input[2]);
+
+            int[,] output = new int[H + 2, W + 2];
+
+            for (int i = 0; i < N; i++)
+            {
+                string[] input2 = Console.ReadLine().Split(" ");
+                int AX = int.Parse(input2[0]);
+                int AY = int.Parse(input2[1]);
+                int BX = int.Parse(input2[2]);
+                int BY = int.Parse(input2[3]);
+
+                output[AX, AY] += 1;
+                output[BX + 1, BY + 1] += 1;
+                output[AX, BY + 1] -= 1;
+                output[BX + 1, AY] -= 1;
+            }
+
+            // 横の合計
+            for (int i = 0; i <= H + 1; i++)
+            {
+                int before = 0;
+                for (int j = 0; j <= W + 1; j++)
+                {
+                    output[i, j] += before;
+                    before = output[i, j];
+                }
+            }
+
+            // 縦の合計
+            for (int i = 0; i <= W + 1; i++)
+            {
+                int before = 0;
+                for (int j = 0; j <= H + 1; j++)
+                {
+                    output[j, i] += before;
+                    before = output[j, i];
+                }
+            }
+
+            for (int i = 1; i <= H; i++)
+            {
+                string outStr = string.Empty;
+                for (int j = 1; j <= W; j++)
+                {
+                    {
+                        outStr += output[i, j] + " ";
+                    }
+                }
+
+                Console.WriteLine(outStr.TrimEnd());
+            }
+        }
     }
 }
