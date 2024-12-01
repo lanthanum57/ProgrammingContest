@@ -10,6 +10,10 @@ namespace ProgrammingContest.kyopgm
     internal class Chapter03
     {
         // 二分探索
+        // 配列が昇順でソートされていることが前提。
+        // ソートされていないと正しい値が得られないため、ソートする処理を追加する必要がある。
+        // ※ C#には二分探索の以下の標準ライブラリが用意されている。
+        //     Array.BinarySearch(numbers, 7); --> 見つからない場合は、-1が返る。
         private void A11()
         {
             string[] input = Console.ReadLine().Split(" ");
