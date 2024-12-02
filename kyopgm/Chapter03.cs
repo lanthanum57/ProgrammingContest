@@ -13,7 +13,10 @@ namespace ProgrammingContest.kyopgm
         // 配列が昇順でソートされていることが前提。
         // ソートされていないと正しい値が得られないため、ソートする処理を追加する必要がある。
         // ※ C#には二分探索の以下の標準ライブラリが用意されている。
-        //     Array.BinarySearch(numbers, 7); --> 見つからない場合は、-1が返る。
+        //     Array.BinarySearch(numbers, 7); --> 見つからない場合は、目的の数字よりも小さいものの内の最大値のindex*-1が返る。
+        //     例えば、3,5,7,10 で6を探す場合は、-1が返る。
+        //                        7を探す場合は、2が返る。
+        //
         private void A11()
         {
             string[] input = Console.ReadLine().Split(" ");
@@ -46,6 +49,37 @@ namespace ProgrammingContest.kyopgm
             }
 
             Console.WriteLine(beginIndex);
+        }
+
+        private void B11()
+        {
+            int N = int.Parse(Console.ReadLine());
+            string[] input = Console.ReadLine().Split(" ");
+
+            int[] numbers = new int[N];
+            for (int i = 0; i < N; i++)
+            {
+                numbers[i] = int.Parse(input[i]);
+            }
+
+            // Sort
+            Array.Sort(numbers);
+
+            int Q = int.Parse(Console.ReadLine());
+            for (int i = 1; i <= Q; i++)
+            {
+                int X = int.Parse(Console.ReadLine());
+                int XIndex = Array.BinarySearch(numbers, X);
+
+                if (XIndex < 0)
+                {
+                    Console.WriteLine(XIndex * -1 - 1);
+                }
+                else
+                {
+                    Console.WriteLine(XIndex);
+                }
+            }
         }
     }
 }
