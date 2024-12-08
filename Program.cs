@@ -1,35 +1,52 @@
 ﻿using System;
-using System.Globalization;
 class Program
 {
     static void Main(string[] args)
     {
-        int N = int.Parse(Console.ReadLine());
         string[] input = Console.ReadLine().Split(" ");
+        int N = int.Parse(input[0]);
+        int K = int.Parse(input[1]);
 
-        int[] numbers = new int[N];
-        for (int i = 0; i < N; i++)
+        int[] prints = new int[100000];
+        input = Console.ReadLine().Split(" ");
+        for (int i = 1; i <= N; i++)
         {
-            numbers[i] = int.Parse(input[i]);
+            prints[i] = int.Parse(input[i - 1]);
         }
+        
+        long left = 1;
+        long right = 1000000000;
 
-        // Sort
-        Array.Sort(numbers);
-
-        int Q = int.Parse(Console.ReadLine());
-        for (int i = 1; i <= Q; i++)
+        while (left < right)
         {
-            int X = int.Parse(Console.ReadLine());
-            int XIndex = Array.BinarySearch(numbers, X);
-
-            if (XIndex < 0)
+            long mid = (left + right) / 2;
+            if (check(N, K, prints, mid) == false)
             {
-                Console.WriteLine(XIndex * -1 - 1);
+                left = mid + 1;
             }
             else
             {
-                Console.WriteLine(XIndex);
+                right = mid;
             }
         }
+
+        Console.WriteLine(right);
+    }
+
+    // 
+    private static bool check(int N, int K, int[] input, long x)
+    {
+        long sum = 0;
+        for (int i = 1; i <= N; i++)
+        {
+            sum += x / input[i];
+        }
+
+        if (sum >= K)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
