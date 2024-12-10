@@ -3,50 +3,27 @@ class Program
 {
     static void Main(string[] args)
     {
-        string[] input = Console.ReadLine().Split(" ");
-        int N = int.Parse(input[0]);
-        int K = int.Parse(input[1]);
+        int N = int.Parse(Console.ReadLine());
 
-        int[] prints = new int[100000];
-        input = Console.ReadLine().Split(" ");
-        for (int i = 1; i <= N; i++)
-        {
-            prints[i] = int.Parse(input[i - 1]);
-        }
-        
-        long left = 1;
-        long right = 1000000000;
+        double left = 0;
+        double right = 100;
+        double mid = 0;
 
-        while (left < right)
+        for (int i = 0; i < 20; i++)
         {
-            long mid = (left + right) / 2;
-            if (check(N, K, prints, mid) == false)
-            {
-                left = mid + 1;
-            }
-            else
+            mid = (left + right) / 2.0;
+            double val = mid * mid * mid + mid;
+
+            if (val > 1.0 * N)
             {
                 right = mid;
             }
+            else
+            {
+                left = mid;
+            }
         }
 
-        Console.WriteLine(right);
-    }
-
-    // 
-    private static bool check(int N, int K, int[] input, long x)
-    {
-        long sum = 0;
-        for (int i = 1; i <= N; i++)
-        {
-            sum += x / input[i];
-        }
-
-        if (sum >= K)
-        {
-            return true;
-        }
-
-        return false;
+        Console.WriteLine(mid);
     }
 }
