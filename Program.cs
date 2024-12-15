@@ -3,27 +3,43 @@ class Program
 {
     static void Main(string[] args)
     {
-        int N = int.Parse(Console.ReadLine());
+        string[] input = Console.ReadLine().Split(" ");
+        int N = int.Parse(input[0]);
+        int K = int.Parse(input[1]);
 
-        double left = 0;
-        double right = 100;
-        double mid = 0;
-
-        for (int i = 0; i < 20; i++)
+        string[] input2 = Console.ReadLine().Split(" ");
+        int[] A = new int[100010];
+        for (int i = 1; i <= N; i++)
         {
-            mid = (left + right) / 2.0;
-            double val = mid * mid * mid + mid;
+            A[i] = int.Parse(input2[i - 1]);
+        }
 
-            if (val > 1.0 * N)
+        int[] R = new int[100010];
+
+        for (int i = 1; i <= N - 1; i++)
+        {
+            if (i == 1)
             {
-                right = mid;
+                R[i] = 1;
             }
             else
             {
-                left = mid;
+                R[i] = R[i - 1];
+            }
+
+            while (R[i] < N && A[R[i] + 1] - A[i] <= K)
+            {
+                R[i] += 1;
             }
         }
 
-        Console.WriteLine(mid);
+        long ans = 0;
+
+        for (int i = 1; i <= N - 1; i++)
+        {
+            ans += R[i] - i;
+        }
+
+        Console.WriteLine(ans);
     }
 }
